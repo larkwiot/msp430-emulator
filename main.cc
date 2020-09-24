@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
 
     CPU cpu {};
     cpu.load_program(program);
+    cpu.run();
 
     return 0;
 }

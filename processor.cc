@@ -61,3 +61,16 @@ void CPU::step()
     execute();
     return;
 }
+
+// extremely rough implementation, this will
+// probably break when it throws some exception.
+// This function only exists right now for
+// testing purposes.
+void CPU::run()
+{
+    while (true)
+    {
+        step();
+    }
+    return;
+}

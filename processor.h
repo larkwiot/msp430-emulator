@@ -22,6 +22,8 @@ struct CPU
     void decode();
     void execute();
     void step();
+
+    void run();
 };
 
 #endif // PROCESSOR_H
