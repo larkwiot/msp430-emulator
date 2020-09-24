@@ -4,7 +4,7 @@
 #include "includes.h"
 #include "types.h"
 #include "util.h"
-#include "state.h"
+#include "cpustate.h"
 
 struct Operand
 {

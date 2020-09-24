@@ -1,4 +1,4 @@
-#include "state.h"
+#include "cpustate.h"
 
 uint16_t CPUState::get_reg(REG reg) const
 {

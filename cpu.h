@@ -5,7 +5,7 @@
 #include "types.h"
 #include "util.h"
 #include "instructions.h"
-#include "state.h"
+#include "cpustate.h"
 
 struct CPU
 {

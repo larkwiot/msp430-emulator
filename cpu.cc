@@ -1,4 +1,4 @@
-#include "processor.h"
+#include "cpu.h"
 
 void CPU::load_program(std::vector<uchar>& program)
 {

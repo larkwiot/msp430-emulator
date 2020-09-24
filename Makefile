@@ -19,13 +19,13 @@ executable: $(OBJS)
 main.o: main.cc
 	$(CXX) -c $^ $(CFLAGS)
 
-state.o: state.cc
+state.o: cpustate.cc
 	$(CXX) -c $^ $(CFLAGS)
 
 instructions.o: instructions.cc
 	$(CXX) -c $^ $(CFLAGS)
 
-processor.o: processor.cc
+processor.o: cpu.cc
 	$(CXX) -c $^ $(CFLAGS)
 
 util.o: util.cc
