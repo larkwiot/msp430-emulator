@@ -1,0 +1,171 @@
+#include "state.h"
+
+uint16_t CPUState::get_reg(REG reg) const
+{
+    return registers.at(peel(reg));
+}
+
+uint16_t CPUState::get_pc() const
+{
+    return registers.at(peel(REG::PC));
+}
+
+void CPUState::set_reg(REG reg, uint16_t value)
+{
+    registers.at(peel(reg)) = value;
+    return;
+}
+
+void CPUState::set_pc(uint16_t value)
+{
+    registers.at(peel(REG::PC)) = value;
+    return;
+}
+
+inline
+uint16_t CPUState::get_flags() const
+{
+    return registers.at(peel(REG::SR));
+}
+
+inline
+bool CPUState::get_flag_carry() const
+{
+    return (get_flags() & 0x1) == 1;
+}
+
+inline
+constexpr void CPUState::set_flag_carry()
+{
+    registers.at(peel(REG::SR)) |= 0x1;
+}
+
+inline
+constexpr void CPUState::clear_flag_carry()
+{
+    registers.at(peel(REG::SR)) &= 0xFFFE;
+}
+
+inline
+bool CPUState::get_flag_zero() const
+{
+    return (get_flags() & 0x2) == 0x2;
+}
+
+inline
+constexpr void CPUState::set_flag_zero()
+{
+    registers.at(peel(REG::SR)) |= 0x2;
+}
+
+inline
+constexpr void CPUState::clear_flag_zero()
+{
+    registers.at(peel(REG::SR)) &= 0xFFFD;
+}
+
+inline
+bool CPUState::get_flag_negative() const
+{
+    return (get_flags() & 0x4) == 0x4;
+}
+
+inline
+constexpr void CPUState::set_flag_negative()
+{
+    registers.at(peel(REG::SR)) |= 0x4;
+}
+
+inline
+constexpr void CPUState::clear_flag_negative()
+{
+    registers.at(peel(REG::SR)) &= 0xFFFB;
+}
+
+inline
+bool CPUState::get_flag_overflow() const
+{
+    return (get_flags() & 0x100) == 0x100;
+}
+
+inline
+constexpr void CPUState::set_flag_overflow()
+{
+    registers.at(peel(REG::SR)) |= 0x100;
+}
+
+inline
+constexpr void CPUState::clear_flag_overflow()
+{
+    registers.at(peel(REG::SR)) &= 0xFEFF;
+}
+
+bool CPUState::is_true(COND cond) const noexcept
+{
+    switch (cond)
+    {
+        case COND::NZ:
+            return !get_flag_zero();
+        case COND::EQ:
+            return get_flag_zero();
+        case COND::NOCARRY:
+            return !get_flag_carry();
+        case COND::CARRY:
+            return get_flag_carry();
+        case COND::NEG:
+            return get_flag_negative();
+        case COND::GE:
+            return get_flag_negative() == get_flag_overflow();
+        case COND::LT:
+            return get_flag_negative() != get_flag_overflow();
+        case COND::ABS:
+            return true;
+    }
+}
+
+uint16_t CPUState::read_mem(size_t address, bool bw) const
+{
+    if (bw)
+    {
+        return memory.at(address) & 0xFF;
+    }
+    return swap(memory.at(address));
+}
+
+void CPUState::write_mem(size_t address, bool bw, uint16_t value)
+{
+    if (bw)
+    {
+        memory.at(address) = static_cast<uchar>(value & 0xFF);
+    }
+    else
+    {
+        memory.at(address) = swap(value);
+    }
+    return;
+}
+
+uint16_t CPUState::peek(int offset) const
+{
+    return read_mem(get_pc() + offset, false);
+}
+
+void CPUState::set_arith_flags(uint16_t a, uint16_t b, int result, bool bw)
+{
+    int negflag = bw ? 0x80 : 0x8000;
+    int carflag = bw ? 0x100 : 0x10000;
+    result == 0 ? set_flag_zero() : clear_flag_zero();
+
+    (result & negflag) != 0 ? set_flag_negative() : clear_flag_negative();
+    (result & carflag) != 0 ? set_flag_carry() : clear_flag_carry();
+    if (((result & negflag) != (a & negflag)) && ((a & negflag) == (b & negflag)))
+    {
+        set_flag_overflow();
+    }
+    else
+    {
+        clear_flag_overflow();
+    }
+
+    return;
+}
