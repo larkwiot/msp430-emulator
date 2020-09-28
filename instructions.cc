@@ -76,6 +76,7 @@ void DoubleOp::execute(CPUState& state)
             value = src.get_value(state, length);
             dst.set_value(state, length, value);
             break;
+
         case DOUBLE_OP::ADD:
             a = src.get_value(state, length);
             b = dst.get_value(state, length);
@@ -83,10 +84,13 @@ void DoubleOp::execute(CPUState& state)
             dst.set_value(state, length, value & 0xFFFF);
             state.set_arith_flags(a, b, value, bw);
             break;
+
         case DOUBLE_OP::ADDC:
             break;
+
         case DOUBLE_OP::SUBC:
             break;
+
         case DOUBLE_OP::SUB:
             a = src.get_value(state, length);
             b = dst.get_value(state, length);
@@ -94,22 +98,29 @@ void DoubleOp::execute(CPUState& state)
             dst.set_value(state, length, value & 0xFFFF);
             state.set_arith_flags(a, b, value, bw);
             break;
+
         case DOUBLE_OP::CMP:
             a = src.get_value(state, length);
             b = dst.get_value(state, length);
             value = b - a;
             state.set_arith_flags(a, b, value, bw);
             break;
+
         case DOUBLE_OP::DADD:
             break;
+
         case DOUBLE_OP::BIT:
             break;
+
         case DOUBLE_OP::BIC:
             break;
+
         case DOUBLE_OP::BIS:
             break;
+
         case DOUBLE_OP::XOR:
             break;
+
         case DOUBLE_OP::AND:
             break;
     }
