@@ -133,6 +133,7 @@ void CPUState::set_arith_flags(uint16_t a, uint16_t b, int result, bool bw) {
 
 	(result & negflag) != 0 ? set_flag_negative() : clear_flag_negative();
 	(result & carflag) != 0 ? set_flag_carry() : clear_flag_carry();
+	
 	if (((result & negflag) != (a & negflag)) &&
 		((a & negflag) == (b & negflag))) {
 		set_flag_overflow();
