@@ -3,7 +3,7 @@ CFLAGS = -std=c++2a -Wall -Werror
 DEBUG = -Og -g3 -ggdb -fsanitize=address -fno-omit-frame-pointer
 OPT = -Ofast
 
-OBJS = main.o instructions.o processor.o util.o state.o
+OBJS = main.o instructions.o cpu.o util.o cpustate.o
 
 debug: CFLAGS += $(DEBUG)
 debug: executable
@@ -19,13 +19,13 @@ executable: $(OBJS)
 main.o: main.cc
 	$(CXX) -c $^ $(CFLAGS)
 
-state.o: cpustate.cc
+cpustate.o: cpustate.cc
 	$(CXX) -c $^ $(CFLAGS)
 
 instructions.o: instructions.cc
 	$(CXX) -c $^ $(CFLAGS)
 
-processor.o: cpu.cc
+cpu.o: cpu.cc
 	$(CXX) -c $^ $(CFLAGS)
 
 util.o: util.cc

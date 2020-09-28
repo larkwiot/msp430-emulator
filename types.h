@@ -5,7 +5,7 @@
 
 typedef unsigned char uchar;
 
-enum class REG
+enum REG
 {
     PC  = 0,
     SP  = 1,

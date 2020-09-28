@@ -18,12 +18,6 @@ constexpr I sign_extend(I x) noexcept
     return ~(((x & static_cast<I>(pow(2, bits) - 1)) ^ bits) + 1);
 }
 
-template <typename E> inline
-constexpr auto peel(E e) noexcept
-{
-    return static_cast<std::underlying_type_t<E>>(e);
-}
-
 ADDRMODE get_addrmode(int nmode, REG reg);
 
 #endif // UTIL_H

@@ -34,7 +34,7 @@ uint8_t Operand::get_value(CPUState& state, int insnLength)
 
     if (addressMode == ADDRMODE::INDIRECT_AUTOINCREMENT)
     {
-        state.registers.at(peel(reg)) += bw ? 1 : 2;
+        state.registers.at(reg) += bw ? 1 : 2;
     }
 }
 
