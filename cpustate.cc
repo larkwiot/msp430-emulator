@@ -7,7 +7,7 @@ uint16_t CPUState::get_reg(REG reg) const
 
 uint16_t CPUState::get_pc() const
 {
-    return registers.at(REG::PC);
+    return std::get<REG::PC>(registers);
 }
 
 void CPUState::set_reg(REG reg, uint16_t value)
@@ -18,14 +18,14 @@ void CPUState::set_reg(REG reg, uint16_t value)
 
 void CPUState::set_pc(uint16_t value)
 {
-    registers.at(REG::PC) = value;
+    std::get<REG::PC>(registers) = value;
     return;
 }
 
 inline
 uint16_t CPUState::get_flags() const
 {
-    return registers.at(REG::SR);
+    return std::get<REG::SR>(registers);
 }
 
 inline
@@ -37,13 +37,15 @@ bool CPUState::get_flag_carry() const
 inline
 constexpr void CPUState::set_flag_carry()
 {
-    registers.at(REG::SR) |= 0x1;
+    std::get<REG::SR>(registers) |= 0x1;
+    return;
 }
 
 inline
 constexpr void CPUState::clear_flag_carry()
 {
-    registers.at(REG::SR) &= 0xFFFE;
+    std::get<REG::SR>(registers) &= 0xFFFE;
+    return;
 }
 
 inline
@@ -55,13 +57,15 @@ bool CPUState::get_flag_zero() const
 inline
 constexpr void CPUState::set_flag_zero()
 {
-    registers.at(REG::SR) |= 0x2;
+    std::get<REG::SR>(registers) |= 0x2;
+    return;
 }
 
 inline
 constexpr void CPUState::clear_flag_zero()
 {
-    registers.at(REG::SR) &= 0xFFFD;
+    std::get<REG::SR>(registers) &= 0xFFFD;
+    return;
 }
 
 inline
@@ -73,13 +77,15 @@ bool CPUState::get_flag_negative() const
 inline
 constexpr void CPUState::set_flag_negative()
 {
-    registers.at(REG::SR) |= 0x4;
+    std::get<REG::SR>(registers) |= 0x4;
+    return;
 }
 
 inline
 constexpr void CPUState::clear_flag_negative()
 {
-    registers.at(REG::SR) &= 0xFFFB;
+    std::get<REG::SR>(registers) &= 0xFFFB;
+    return;
 }
 
 inline
@@ -91,13 +97,15 @@ bool CPUState::get_flag_overflow() const
 inline
 constexpr void CPUState::set_flag_overflow()
 {
-    registers.at(REG::SR) |= 0x100;
+    std::get<REG::SR>(registers) |= 0x100;
+    return;
 }
 
 inline
 constexpr void CPUState::clear_flag_overflow()
 {
-    registers.at(REG::SR) &= 0xFEFF;
+    std::get<REG::SR>(registers) &= 0xFEFF;
+    return;
 }
 
 bool CPUState::is_true(COND cond) const noexcept
