@@ -21,7 +21,15 @@ std::vector<uchar> read_file(char* filename)
 
 ADDRMODE get_addrmode(int nmode, REG reg)
 {
-    if (!specialRegs.contains(reg))
+    if (nmode == 0)
+    {
+        return ADDRMODE::REGISTER;
+    }
+    else if (reg == REG::CG)
+    {
+        return ADDRMODE::CONSTANT;
+    }
+    else if (reg == REG::PC || reg == REG::SR)
     {
         reg = REG::ANY;
     }

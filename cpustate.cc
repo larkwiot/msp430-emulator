@@ -132,7 +132,7 @@ bool CPUState::is_true(COND cond) const noexcept
 
         case COND::LT:
             return get_flag_negative() != get_flag_overflow();
-            
+
         case COND::ABS:
             return true;
     }

@@ -40,32 +40,18 @@ enum class ADDRMODE
     CONSTANT,               // from CG
 };
 
-const static std::unordered_set<REG> specialRegs = {
-    REG::PC,
-    REG::SR,
-    REG::CG,
-};
-
 const static std::map<std::pair<int, REG>, ADDRMODE> toAddrmode = {
-    {{0, REG::ANY}, ADDRMODE::REGISTER},
-    {{0, REG::PC},  ADDRMODE::REGISTER},
-    {{0, REG::SR},  ADDRMODE::REGISTER},
-    {{0, REG::CG},  ADDRMODE::REGISTER},
-    
     {{1, REG::ANY}, ADDRMODE::INDEXED},
     {{1, REG::PC},  ADDRMODE::SYMBOLIC},
     {{1, REG::SR},  ADDRMODE::ABSOLUTE},
-    {{1, REG::CG},  ADDRMODE::CONSTANT},
     
     {{2, REG::ANY}, ADDRMODE::INDIRECT_REGISTER},
     {{2, REG::PC},  ADDRMODE::INDIRECT_REGISTER},
     {{2, REG::SR},  ADDRMODE::CONSTANT},
-    {{2, REG::CG},  ADDRMODE::CONSTANT},
     
     {{3, REG::ANY}, ADDRMODE::INDIRECT_AUTOINCREMENT},
     {{3, REG::PC},  ADDRMODE::IMMEDIATE},
     {{3, REG::SR},  ADDRMODE::CONSTANT},
-    {{3, REG::CG},  ADDRMODE::CONSTANT},
 };
 
 const static std::unordered_set<ADDRMODE> bigModes = {

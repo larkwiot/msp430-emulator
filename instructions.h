@@ -62,14 +62,12 @@ struct DoubleOp : Insn
             bw
         };
 
-        if (bigModes.contains(src.addressMode))
+        if (bigModes.contains(src.addressMode)
+            || bigModes.contains(dst.addressMode))
         {
             length += 2;
         }
-        if (bigModes.contains(dst.addressMode))
-        {
-            length += 2;
-        }
+        
         return;
     }
 
