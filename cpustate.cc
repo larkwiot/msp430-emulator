@@ -114,18 +114,25 @@ bool CPUState::is_true(COND cond) const noexcept
     {
         case COND::NZ:
             return !get_flag_zero();
+
         case COND::EQ:
             return get_flag_zero();
+
         case COND::NOCARRY:
             return !get_flag_carry();
+
         case COND::CARRY:
             return get_flag_carry();
+
         case COND::NEG:
             return get_flag_negative();
+
         case COND::GE:
             return get_flag_negative() == get_flag_overflow();
+
         case COND::LT:
             return get_flag_negative() != get_flag_overflow();
+            
         case COND::ABS:
             return true;
     }
