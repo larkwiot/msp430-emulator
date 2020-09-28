@@ -1,17 +1,17 @@
 #ifndef INCLUDES_H
 #define INCLUDES_H
 
-#include <iostream>
-#include <fstream>
-#include <array>
-#include <vector>
 #include <algorithm>
-#include <type_traits>
-#include <iterator>
+#include <array>
 #include <cmath>
-#include <memory>
+#include <fstream>
+#include <iostream>
+#include <iterator>
 #include <map>
+#include <memory>
 #include <tuple>
+#include <type_traits>
 #include <unordered_set>
+#include <vector>
 
-#endif // INCLUDES_H
+#endif	// INCLUDES_H
