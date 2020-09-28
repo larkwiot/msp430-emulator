@@ -14,7 +14,7 @@ std::vector<uchar> read_file(char* filename) {
 	result.reserve(sz);
 
 	result.insert(result.begin(), std::istream_iterator<uchar>(fh),
-				  std::istream_iterator<uchar>());
+								std::istream_iterator<uchar>());
 
 	return result;
 }

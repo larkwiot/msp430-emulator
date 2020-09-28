@@ -28,35 +28,35 @@ enum REG {
 
 enum class ADDRMODE {
 	//                      // what holds your data
-	REGISTER,				 // register
-	INDEXED,				 // *(register + constant)
-	SYMBOLIC,				 // *(pc       + constant)
-	ABSOLUTE,				 // *(constant)
-	INDIRECT_REGISTER,		 // *(register)
+	REGISTER,								 // register
+	INDEXED,								 // *(register + constant)
+	SYMBOLIC,								 // *(pc       + constant)
+	ABSOLUTE,								 // *(constant)
+	INDIRECT_REGISTER,			 // *(register)
 	INDIRECT_AUTOINCREMENT,	 // *(register); register++
-	IMMEDIATE,				 // constant
-	CONSTANT,				 // from CG
+	IMMEDIATE,							 // constant
+	CONSTANT,								 // from CG
 };
 
 const static std::map<std::pair<int, REG>, ADDRMODE> toAddrmode = {
-	{{1, REG::ANY}, ADDRMODE::INDEXED},
-	{{1, REG::PC}, ADDRMODE::SYMBOLIC},
-	{{1, REG::SR}, ADDRMODE::ABSOLUTE},
+		{{1, REG::ANY}, ADDRMODE::INDEXED},
+		{{1, REG::PC}, ADDRMODE::SYMBOLIC},
+		{{1, REG::SR}, ADDRMODE::ABSOLUTE},
 
-	{{2, REG::ANY}, ADDRMODE::INDIRECT_REGISTER},
-	{{2, REG::PC}, ADDRMODE::INDIRECT_REGISTER},
-	{{2, REG::SR}, ADDRMODE::CONSTANT},
+		{{2, REG::ANY}, ADDRMODE::INDIRECT_REGISTER},
+		{{2, REG::PC}, ADDRMODE::INDIRECT_REGISTER},
+		{{2, REG::SR}, ADDRMODE::CONSTANT},
 
-	{{3, REG::ANY}, ADDRMODE::INDIRECT_AUTOINCREMENT},
-	{{3, REG::PC}, ADDRMODE::IMMEDIATE},
-	{{3, REG::SR}, ADDRMODE::CONSTANT},
+		{{3, REG::ANY}, ADDRMODE::INDIRECT_AUTOINCREMENT},
+		{{3, REG::PC}, ADDRMODE::IMMEDIATE},
+		{{3, REG::SR}, ADDRMODE::CONSTANT},
 };
 
 const static std::unordered_set<ADDRMODE> bigModes = {
-	ADDRMODE::ABSOLUTE,
-	ADDRMODE::SYMBOLIC,
-	ADDRMODE::INDEXED,
-	ADDRMODE::IMMEDIATE,
+		ADDRMODE::ABSOLUTE,
+		ADDRMODE::SYMBOLIC,
+		ADDRMODE::INDEXED,
+		ADDRMODE::IMMEDIATE,
 };
 
 enum class TYPE {

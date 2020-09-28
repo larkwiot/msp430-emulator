@@ -48,7 +48,7 @@ struct DoubleOp : Insn {
 		dst = Operand{static_cast<REG>(op & 0xF), ((op >> 7) & 1), bw};
 
 		if (bigModes.contains(src.addressMode) ||
-			bigModes.contains(dst.addressMode)) {
+				bigModes.contains(dst.addressMode)) {
 			length += 2;
 		}
 
