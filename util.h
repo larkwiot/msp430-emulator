@@ -4,6 +4,9 @@
 #include "includes.h"
 #include "types.h"
 
+#define ERR(S) fprintf(stderr, "[!] error: " S)
+#define ENUMNAME(E) std::string(magic_enum::enum_name(E))
+
 std::vector<uchar> read_file(char* filename);
 
 constexpr uint16_t swap(uint16_t word) noexcept {
@@ -16,8 +19,6 @@ constexpr I sign_extend(I x) noexcept {
 }
 
 ADDRMODE get_addrmode(int nmode, REG reg);
-
-#define ERR(S) fprintf(stderr, "[!] error: " S)
 
 template <typename I>
 std::string int_to_hexstr(I x) {

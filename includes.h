@@ -15,5 +15,6 @@
 #include <type_traits>
 #include <unordered_set>
 #include <vector>
+#include "magic_enum.hpp"
 
 #endif	// INCLUDES_H

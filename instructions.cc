@@ -131,7 +131,7 @@ void DoubleOp::execute(CPUState& state) {
 
 std::string DoubleOp::get_string() {
 	std::string s{};
-	s += "[Insn][Double Op]:\n";
+	s += "[Insn][Double Op] " + ENUMNAME(dop) + "\n";
 	s += "\t" + src.get_string();
 	s += "\tBw = " + std::to_string(bw) + "\n";
 	s += "\t" + dst.get_string();
@@ -157,8 +157,7 @@ void Jump::execute(CPUState& state) {
 
 std::string Jump::get_string() {
 	std::string s{};
-	s += "[Insn][Jump]:\n";
-	s += "\t" + std::to_string(static_cast<int>(condition)) + "\n";
+	s += "[Insn][Jump] " + ENUMNAME(condition) + "\n";
 	s += "\tOffset = 0x" + int_to_hexstr(offset) + "\n";
 	return s;
 }
