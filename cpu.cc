@@ -6,7 +6,7 @@ void CPU::load_program(std::vector<uchar>& program) {
 		abort();
 	}
 
-	std::copy(program.begin(), program.end(), state.memory.begin());
+	std::copy(program.begin(), program.end(), state.memory.begin() + 0xC000);
 
 	return;
 }
