@@ -104,7 +104,7 @@ void DoubleOp::execute(CPUState& state) {
 
 		default:
 			ERR("unimplemented insn");
-			std::cerr << get_string;
+			std::cerr << get_string();
 			abort();
 	}
 	return;
@@ -121,7 +121,7 @@ std::string DoubleOp::get_string() {
 
 void SingleOp::execute(CPUState& state) {
 	ERR("unimplemented insn");
-	std::cerr << get_string;
+	std::cerr << get_string();
 	abort();
 	return;
 }
