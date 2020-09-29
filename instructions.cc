@@ -87,12 +87,6 @@ void DoubleOp::execute(CPUState& state) {
 			state.set_arith_flags(a, b, value, bw);
 			break;
 
-		case DOUBLE_OP::ADDC:
-			break;
-
-		case DOUBLE_OP::SUBC:
-			break;
-
 		case DOUBLE_OP::SUB:
 			a = src.get_value(state, length);
 			b = dst.get_value(state, length);
@@ -108,23 +102,10 @@ void DoubleOp::execute(CPUState& state) {
 			state.set_arith_flags(a, b, value, bw);
 			break;
 
-		case DOUBLE_OP::DADD:
-			break;
-
-		case DOUBLE_OP::BIT:
-			break;
-
-		case DOUBLE_OP::BIC:
-			break;
-
-		case DOUBLE_OP::BIS:
-			break;
-
-		case DOUBLE_OP::XOR:
-			break;
-
-		case DOUBLE_OP::AND:
-			break;
+		default:
+			ERR("unimplemented insn");
+			std::cerr << get_string;
+			abort();
 	}
 	return;
 }
@@ -139,6 +120,9 @@ std::string DoubleOp::get_string() {
 }
 
 void SingleOp::execute(CPUState& state) {
+	ERR("unimplemented insn");
+	std::cerr << get_string;
+	abort();
 	return;
 }
 
