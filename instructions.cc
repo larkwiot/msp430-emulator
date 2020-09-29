@@ -127,6 +127,10 @@ std::string DoubleOp::get_string() {
 	return s;
 }
 
+std::string DoubleOp::get_name() {
+	return ENUMNAME(dop);
+}
+
 void SingleOp::execute(CPUState& state) {
 	ERR("unimplemented insn");
 	std::cerr << get_string();
@@ -138,6 +142,10 @@ std::string SingleOp::get_string() {
 	std::string s{};
 	s += "singleop placeholder\n";
 	return s;
+}
+
+std::string SingleOp::get_name() {
+	return ENUMNAME(sop);
 }
 
 void Jump::execute(CPUState& state) {
@@ -152,4 +160,8 @@ std::string Jump::get_string() {
 	s += "[Insn][Jump] " + ENUMNAME(condition) + "\n";
 	s += "\tOffset = 0x" + int_to_hexstr(offset) + "\n";
 	return s;
+}
+
+std::string Jump::get_name() {
+	return ENUMNAME(condition);
 }

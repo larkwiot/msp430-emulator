@@ -32,6 +32,7 @@ struct Insn {
 
 	virtual void execute(CPUState& state) = 0;
 	virtual std::string get_string() = 0;
+	virtual std::string get_name() = 0;
 };
 
 struct DoubleOp : Insn {
@@ -62,6 +63,7 @@ struct DoubleOp : Insn {
 
 	void execute(CPUState& state) override;
 	std::string get_string() override;
+	std::string get_name() override;
 };
 
 struct SingleOp : Insn {
@@ -87,6 +89,7 @@ struct SingleOp : Insn {
 
 	void execute(CPUState& state) override;
 	std::string get_string() override;
+	std::string get_name() override;
 };
 
 struct Jump : Insn {
@@ -106,6 +109,7 @@ struct Jump : Insn {
 
 	void execute(CPUState& state) override;
 	std::string get_string() override;
+	std::string get_name() override;
 };
 
 #endif	// INSTRUCTIONS_H
