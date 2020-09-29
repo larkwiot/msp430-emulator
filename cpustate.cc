@@ -18,62 +18,62 @@ void CPUState::set_pc(uint16_t value) {
 	return;
 }
 
-inline uint16_t CPUState::get_flags() const {
+uint16_t CPUState::get_flags() const {
 	return std::get<REG::SR>(registers);
 }
 
-inline bool CPUState::get_flag_carry() const {
+bool CPUState::get_flag_carry() const {
 	return (get_flags() & 0x1) == 1;
 }
 
-inline constexpr void CPUState::set_flag_carry() {
+constexpr void CPUState::set_flag_carry() {
 	std::get<REG::SR>(registers) |= 0x1;
 	return;
 }
 
-inline constexpr void CPUState::clear_flag_carry() {
+constexpr void CPUState::clear_flag_carry() {
 	std::get<REG::SR>(registers) &= 0xFFFE;
 	return;
 }
 
-inline bool CPUState::get_flag_zero() const {
+bool CPUState::get_flag_zero() const {
 	return (get_flags() & 0x2) == 0x2;
 }
 
-inline constexpr void CPUState::set_flag_zero() {
+constexpr void CPUState::set_flag_zero() {
 	std::get<REG::SR>(registers) |= 0x2;
 	return;
 }
 
-inline constexpr void CPUState::clear_flag_zero() {
+constexpr void CPUState::clear_flag_zero() {
 	std::get<REG::SR>(registers) &= 0xFFFD;
 	return;
 }
 
-inline bool CPUState::get_flag_negative() const {
+bool CPUState::get_flag_negative() const {
 	return (get_flags() & 0x4) == 0x4;
 }
 
-inline constexpr void CPUState::set_flag_negative() {
+constexpr void CPUState::set_flag_negative() {
 	std::get<REG::SR>(registers) |= 0x4;
 	return;
 }
 
-inline constexpr void CPUState::clear_flag_negative() {
+constexpr void CPUState::clear_flag_negative() {
 	std::get<REG::SR>(registers) &= 0xFFFB;
 	return;
 }
 
-inline bool CPUState::get_flag_overflow() const {
+bool CPUState::get_flag_overflow() const {
 	return (get_flags() & 0x100) == 0x100;
 }
 
-inline constexpr void CPUState::set_flag_overflow() {
+constexpr void CPUState::set_flag_overflow() {
 	std::get<REG::SR>(registers) |= 0x100;
 	return;
 }
 
-inline constexpr void CPUState::clear_flag_overflow() {
+constexpr void CPUState::clear_flag_overflow() {
 	std::get<REG::SR>(registers) &= 0xFEFF;
 	return;
 }
@@ -142,4 +142,14 @@ void CPUState::set_arith_flags(uint16_t a, uint16_t b, int result, bool bw) {
 	}
 
 	return;
+}
+
+std::string CPUState::get_string() {
+	std::string s{};
+	s += "[CPU State] registers:\n";
+	int ri = 0;
+	for (auto r : registers) {
+		s += "\tR" + std::to_string(ri) + " " + std::to_string(r) + "\n";
+	}
+	return s;
 }

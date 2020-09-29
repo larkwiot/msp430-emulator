@@ -23,6 +23,8 @@ struct CPU {
 	void step();
 
 	void run();
+
+	std::string get_string();
 };
 
 #endif	// PROCESSOR_H

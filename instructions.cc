@@ -60,6 +60,15 @@ void Operand::set_value(CPUState& state, int insnLength, uint16_t value) {
 	}
 }
 
+std::string Operand::get_string() {
+	std::string s{};
+	s += "[Operand]:\n";
+	s += "\tAddress Mode = " + std::to_string(numAddrmode) + "\n";
+	s += "\tRegister = " + std::to_string(static_cast<int>(reg)) + "\n";
+	s += "\tBw = " + std::to_string(bw) + "\n";
+	return s;
+}
+
 void DoubleOp::execute(CPUState& state) {
 	int a;
 	int b;
@@ -120,8 +129,23 @@ void DoubleOp::execute(CPUState& state) {
 	return;
 }
 
+std::string DoubleOp::get_string() {
+	std::string s{};
+	s += "[Insn][Double Op]:\n";
+	s += "\t" + src.get_string();
+	s += "\tBw = " + std::to_string(bw) + "\n";
+	s += "\t" + dst.get_string();
+	return s;
+}
+
 void SingleOp::execute(CPUState& state) {
 	return;
+}
+
+std::string SingleOp::get_string() {
+	std::string s{};
+	s += "singleop placeholder\n";
+	return s;
 }
 
 void Jump::execute(CPUState& state) {
@@ -129,4 +153,12 @@ void Jump::execute(CPUState& state) {
 		state.set_pc(state.get_pc() + offset);
 	}
 	return;
+}
+
+std::string Jump::get_string() {
+	std::string s{};
+	s += "[Insn][Jump]:\n";
+	s += "\t" + std::to_string(static_cast<int>(condition)) + "\n";
+	s += "\tOffset = 0x" + int_to_hexstr(offset) + "\n";
+	return s;
 }

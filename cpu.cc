@@ -43,6 +43,7 @@ void CPU::execute() {
 }
 
 void CPU::step() {
+	std::cout << get_string();
 	fetch();
 	decode();
 	execute();
@@ -58,4 +59,13 @@ void CPU::run() {
 		step();
 	}
 	return;
+}
+
+std::string CPU::get_string() {
+	std::string s{};
+	s += "[CPU] currInsn = " + std::to_string(currInsn) + "\n";
+	s += "[CPU] currDecInsn:\n";
+	s += currDecInsn->get_string() + "\n";
+	s += state.get_string() + "\n";
+	return s;
 }

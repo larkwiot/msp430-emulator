@@ -20,6 +20,7 @@ struct Operand {
 
 	uint8_t get_value(CPUState& state, int insnLength);
 	void set_value(CPUState& state, int insnLength, uint16_t value);
+	std::string get_string();
 };
 
 struct Insn {
@@ -30,6 +31,7 @@ struct Insn {
 	virtual ~Insn() = default;
 
 	virtual void execute(CPUState& state) = 0;
+	virtual std::string get_string() = 0;
 };
 
 struct DoubleOp : Insn {
@@ -59,6 +61,7 @@ struct DoubleOp : Insn {
 	~DoubleOp() = default;
 
 	void execute(CPUState& state) override;
+	std::string get_string() override;
 };
 
 struct SingleOp : Insn {
@@ -83,6 +86,7 @@ struct SingleOp : Insn {
 	~SingleOp() = default;
 
 	void execute(CPUState& state) override;
+	std::string get_string() override;
 };
 
 struct Jump : Insn {
@@ -101,6 +105,7 @@ struct Jump : Insn {
 	~Jump() = default;
 
 	void execute(CPUState& state) override;
+	std::string get_string() override;
 };
 
 #endif	// INSTRUCTIONS_H
