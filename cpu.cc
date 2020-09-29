@@ -46,7 +46,7 @@ void CPU::step() {
 	fetch();
 	decode();
 	execute();
-	std::cout << "[*] executing: " << currDecInsn->get_name() << "\n";
+	std::cerr << "[*] executing: " << currDecInsn->get_name() << "\n";
 	return;
 }
 

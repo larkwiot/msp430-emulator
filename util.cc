@@ -31,7 +31,7 @@ ADDRMODE get_addrmode(int nmode, REG reg) {
 		return ADDRMODE::REGISTER;
 	} else if (reg == REG::CG) {
 		return ADDRMODE::CONSTANT;
-	} else if (reg == REG::PC || reg == REG::SR) {
+	} else if (reg != REG::PC && reg != REG::SR) {
 		reg = REG::ANY;
 	}
 
@@ -43,5 +43,6 @@ ADDRMODE get_addrmode(int nmode, REG reg) {
 	}
 
 	ERR("could not resolve address mode from int and reg");
+	std::cerr << "[num and reg] " << std::to_string(nmode) << " " << ENUMNAME(reg) << "\n";
 	abort();
 }

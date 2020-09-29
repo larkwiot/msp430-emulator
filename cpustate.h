@@ -26,8 +26,8 @@ struct CPUState {
 	void set_flags(uint16_t resultValue);
 
 	bool get_flag_carry() const;
-	constexpr void set_flag_carry();
-	constexpr void clear_flag_carry();
+	void set_flag_carry();
+	void clear_flag_carry();
 
 	bool get_flag_zero() const;
 	constexpr void set_flag_zero();

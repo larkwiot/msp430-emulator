@@ -26,12 +26,12 @@ bool CPUState::get_flag_carry() const {
 	return (get_flags() & 0x1) == 1;
 }
 
-constexpr void CPUState::set_flag_carry() {
+void CPUState::set_flag_carry() {
 	std::get<REG::SR>(registers) |= 0x1;
 	return;
 }
 
-constexpr void CPUState::clear_flag_carry() {
+void CPUState::clear_flag_carry() {
 	std::get<REG::SR>(registers) &= 0xFFFE;
 	return;
 }

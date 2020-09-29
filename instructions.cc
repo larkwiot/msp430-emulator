@@ -16,8 +16,6 @@ uint8_t Operand::get_value(CPUState& state, int insnLength) {
 		case ADDRMODE::ABSOLUTE:
 			return state.read_mem(state.peek(insnLength), bw);
 
-		// intentional fall-through for clarity,
-		// checked later in this method
 		case ADDRMODE::INDIRECT_REGISTER:
 			regval = state.get_reg(reg);
 			return state.read_mem(regval, bw);
@@ -57,6 +55,7 @@ void Operand::set_value(CPUState& state, int insnLength, uint16_t value) {
 
 		default:
 			ERR("invalid destination address mode");
+			std::cerr << "[address mode] " << ENUMNAME(addressMode) << "\n";
 			abort();
 	}
 }
@@ -132,9 +131,48 @@ std::string DoubleOp::get_name() {
 }
 
 void SingleOp::execute(CPUState& state) {
-	ERR("unimplemented insn");
-	std::cerr << get_string();
-	abort();
+	int value;
+	switch (sop) {
+		case SINGLE_OP::RRA:
+			value = dst.get_value(state, length);
+			(value & 0x1) ? state.set_flag_carry() : state.clear_flag_carry();
+			value >>= 1;
+			dst.set_value(state, length, value);
+			break;
+		
+		case SINGLE_OP::SXT:
+			value = dst.get_value(state, length);
+			value &= 0xFF;
+			value = sign_extend<16>(value);
+			dst.set_value(state, length, value);
+			break;
+
+		case SINGLE_OP::PUSH:
+			state.set_reg(REG::SP, state.get_reg(REG::SP) - 2);
+			value = dst.get_value(state, length);
+			state.write_mem(state.get_reg(REG::SP), bw, value);
+			break;
+
+		case SINGLE_OP::CALL:
+			state.set_reg(REG::SP, state.get_reg(REG::SP) - 2);
+			value = state.get_pc() + length;
+			state.write_mem(state.get_reg(REG::SP), bw, value);
+			break;
+
+		case SINGLE_OP::RETI:
+			value = state.read_mem(state.get_reg(REG::SP), bw);
+			state.set_reg(REG::SR, value);
+			state.set_reg(REG::SP, state.get_reg(REG::SP) + 2);
+			value = state.read_mem(state.get_reg(REG::SP), bw);
+			state.set_pc(value);
+			state.set_reg(REG::SP, state.get_reg(REG::SP) + 2);
+			break;
+
+		default:
+			ERR("unimplemented insn");
+			std::cout << "[insn] " << get_name() << "\n";
+			abort();
+	}
 	return;
 }
 

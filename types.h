@@ -81,13 +81,13 @@ enum class DOUBLE_OP {
 };
 
 enum class SINGLE_OP {
-	RRC,
-	SWPB,
-	RRA,
-	SXT,
-	PUSH,
-	CALL,
-	RETI,
+	RRC = 0,
+	SWPB = 1,
+	RRA = 2,
+	SXT = 3,
+	PUSH = 4,
+	CALL = 5,
+	RETI = 6,
 };
 
 enum class COND {
