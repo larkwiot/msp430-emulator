@@ -9,6 +9,13 @@ struct CPUState {
 	std::array<uint16_t, NUM_REGISTERS> registers;
 	std::array<uint8_t, ADDRESS_SPACE + 1> memory;
 
+	CPUState() {
+		set_pc(0xC000);
+		return;
+	}
+
+	~CPUState() = default;
+
 	uint16_t get_reg(REG reg) const;
 	uint16_t get_pc() const;
 	void set_reg(REG reg, uint16_t value);
