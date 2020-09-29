@@ -17,4 +17,6 @@ inline constexpr I sign_extend(I x) noexcept {
 
 ADDRMODE get_addrmode(int nmode, REG reg);
 
+#define ERR(S) fprintf(stderr, "[!] error: " S)
+
 #endif	// UTIL_H

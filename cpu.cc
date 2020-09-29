@@ -2,7 +2,7 @@
 
 void CPU::load_program(std::vector<uchar>& program) {
 	if (program.size() > ADDRESS_SPACE) {
-		fprintf(stderr, "[!] error: program too big");
+		ERR("program too big");
 		abort();
 	}
 
@@ -23,19 +23,13 @@ void CPU::decode() {
 		// assignment-initialized because of C++
 		// scoping rules and control flow
 		case TYPE::SINGLE:
-			SINGLE_OP sop;
-			sop = static_cast<SINGLE_OP>((currInsn >> 7) & 0x7);
-			currDecInsn = std::make_unique<SingleOp>(currInsn, sop);
+			currDecInsn = std::make_unique<SingleOp>(currInsn);
 			break;
 		case TYPE::JUMP:
-			COND cond;
-			cond = static_cast<COND>((currInsn >> 10) & 0x7);
-			currDecInsn = std::make_unique<Jump>(currInsn, cond);
+			currDecInsn = std::make_unique<Jump>(currInsn);
 			break;
 		default:
-			DOUBLE_OP dop;
-			dop = static_cast<DOUBLE_OP>((currInsn >> 12) & 0xF);
-			currDecInsn = std::make_unique<DoubleOp>(currInsn, dop);
+			currDecInsn = std::make_unique<DoubleOp>(currInsn);
 			break;
 	}
 	return;

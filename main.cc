@@ -2,7 +2,7 @@
 
 int main(int argc, char* argv[]) {
 	if (argc < 2) {
-		puts("[!] error: I need a program");
+		ERR("need program");
 		abort();
 	}
 

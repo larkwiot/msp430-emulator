@@ -38,10 +38,11 @@ struct DoubleOp : Insn {
 	bool bw;
 	Operand dst;
 
-	DoubleOp(uint16_t op, DOUBLE_OP dop) noexcept : dop(dop) {
+	DoubleOp(uint16_t op) noexcept {
 		type = TYPE::DOUBLE;
 		length = 16;
 		bw = ((op >> 6) & 1);
+		dop = static_cast<DOUBLE_OP>((op >> 12) & 0xF);
 
 		src = Operand{static_cast<REG>((op >> 8) & 0xF), ((op >> 4) & 2), bw};
 
@@ -65,10 +66,11 @@ struct SingleOp : Insn {
 	bool bw;
 	Operand dst;
 
-	SingleOp(uint16_t op, SINGLE_OP sop) noexcept : sop(sop) {
+	SingleOp(uint16_t op) noexcept {
 		type = TYPE::SINGLE;
 		length = 16;
 		bw = ((op >> 6) & 1);
+		sop = static_cast<SINGLE_OP>((op >> 7) & 0x7);
 
 		dst = Operand{static_cast<REG>(op & 0xF), ((op >> 4) & 2), bw};
 
@@ -87,9 +89,10 @@ struct Jump : Insn {
 	COND condition;
 	int16_t offset;
 
-	Jump(uint16_t op, COND cond) noexcept : condition(cond) {
+	Jump(uint16_t op) noexcept {
 		type = TYPE::JUMP;
 		length = 16;
+		condition = static_cast<COND>((op >> 10) & 0x7);
 
 		offset = sign_extend<10>(op);
 		return;

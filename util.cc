@@ -35,5 +35,6 @@ ADDRMODE get_addrmode(int nmode, REG reg) {
 		return x->second;
 	}
 
+	ERR("could not resolve address mode from int and reg");
 	abort();
 }

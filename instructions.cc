@@ -19,8 +19,11 @@ uint8_t Operand::get_value(CPUState& state, int insnLength) {
 		// intentional fall-through for clarity,
 		// checked later in this method
 		case ADDRMODE::INDIRECT_REGISTER:
+			regval = state.get_reg(reg);
+			return state.read_mem(regval, bw);
 		case ADDRMODE::INDIRECT_AUTOINCREMENT:
 			regval = state.get_reg(reg);
+			state.registers.at(reg) += bw ? 1 : 2;
 			return state.read_mem(regval, bw);
 
 		case ADDRMODE::IMMEDIATE:
@@ -28,10 +31,6 @@ uint8_t Operand::get_value(CPUState& state, int insnLength) {
 
 		case ADDRMODE::CONSTANT:
 			return state.get_reg(REG::CG);
-	}
-
-	if (addressMode == ADDRMODE::INDIRECT_AUTOINCREMENT) {
-		state.registers.at(reg) += bw ? 1 : 2;
 	}
 }
 
@@ -56,6 +55,7 @@ void Operand::set_value(CPUState& state, int insnLength, uint16_t value) {
 			break;
 
 		default:
+			ERR("invalid destination address mode");
 			abort();
 	}
 }
