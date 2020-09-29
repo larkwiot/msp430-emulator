@@ -35,6 +35,7 @@ uint8_t Operand::get_value(CPUState& state, int insnLength) {
 }
 
 void Operand::set_value(CPUState& state, int insnLength, uint16_t value) {
+	value &= 0xFFFF;
 	uint16_t constant;
 	uint16_t regval;
 	switch (addressMode) {
@@ -83,15 +84,23 @@ void DoubleOp::execute(CPUState& state) {
 			a = src.get_value(state, length);
 			b = dst.get_value(state, length);
 			value = a + b;
-			dst.set_value(state, length, value & 0xFFFF);
+			dst.set_value(state, length, value);
+			state.set_arith_flags(a, b, value, bw);
+			break;
+
+		case DOUBLE_OP::SUBC:
+			a = src.get_value(state, length);
+			b = dst.get_value(state, length);
+			value = b - a + state.get_flag_carry();
+			dst.set_value(state, length, value);
 			state.set_arith_flags(a, b, value, bw);
 			break;
 
 		case DOUBLE_OP::SUB:
 			a = src.get_value(state, length);
 			b = dst.get_value(state, length);
-			value = b - a;
-			dst.set_value(state, length, value & 0xFFFF);
+			value = b - a + 1;
+			dst.set_value(state, length, value);
 			state.set_arith_flags(a, b, value, bw);
 			break;
 
@@ -114,7 +123,6 @@ std::string DoubleOp::get_string() {
 	std::string s{};
 	s += "[Insn][Double Op] " + ENUMNAME(dop) + "\n";
 	s += "\t" + src.get_string();
-	s += "\tBw = " + std::to_string(bw) + "\n";
 	s += "\t" + dst.get_string();
 	return s;
 }

@@ -2,13 +2,20 @@
 
 std::vector<uchar> read_file(char* filename) {
 	std::ifstream fh(filename, std::ios::binary);
+
+	if (fh.fail()) {
+		ERR("could not open file");
+		abort();
+	}
+
 	fh.unsetf(std::ios::skipws);
 
 	std::streampos sz;
-
 	fh.seekg(0, std::ios::end);
 	sz = fh.tellg();
 	fh.seekg(0, std::ios::beg);
+
+	printf("[*] running %s, size %d bytes\n", filename, static_cast<int>(sz));
 
 	std::vector<uchar> result{};
 	result.reserve(sz);

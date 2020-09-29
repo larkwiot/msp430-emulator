@@ -110,14 +110,15 @@ uint16_t CPUState::read_mem(size_t address, bool bw) const {
 	if (bw) {
 		return memory.at(address) & 0xFF;
 	}
-	return swap(memory.at(address));
+	return (memory.at(address) << 8) | memory.at(address+1);
 }
 
 void CPUState::write_mem(size_t address, bool bw, uint16_t value) {
 	if (bw) {
 		memory.at(address) = static_cast<uchar>(value & 0xFF);
 	} else {
-		memory.at(address) = swap(value);
+		memory.at(address) = value & 0xFF;
+		memory.at(address+1) = value << 8;
 	}
 	return;
 }
@@ -149,7 +150,8 @@ std::string CPUState::get_string() {
 	s += "[CPU State] registers:\n";
 	int ri = 0;
 	for (auto r : registers) {
-		s += "\tR" + std::to_string(ri) + " " + std::to_string(r) + "\n";
+		s += "\tR" + std::to_string(ri) + " " + int_to_hexstr(r) + "\n";
+		ri++;
 	}
 	return s;
 }
