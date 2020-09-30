@@ -51,7 +51,7 @@ void CPU::step() {
 	std::cout << "[*] fetched: " << int_to_bytes_str(currInsn) << "\n";
 
 	decode();
-	
+
 	execute();
 	std::cout << "[*] executing: " << currDecInsn->get_string() << "\n";
 

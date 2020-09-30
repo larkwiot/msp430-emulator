@@ -159,16 +159,10 @@ std::string CPUState::get_string() {
 void CPUState::print_mem() {
 	int i = 0;
 	while (i + 8 < memory.size()) {
-		printf("0x%x: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n", i,
-			memory.at(i),
-			memory.at(i+1),
-			memory.at(i+2),
-			memory.at(i+3),
-			memory.at(i+4),
-			memory.at(i+5),
-			memory.at(i+6),
-			memory.at(i+7)
-		);
+		printf("0x%x: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n", i, memory.at(i),
+					 memory.at(i + 1), memory.at(i + 2), memory.at(i + 3),
+					 memory.at(i + 4), memory.at(i + 5), memory.at(i + 6),
+					 memory.at(i + 7));
 		i += 8;
 	}
 	if (i < memory.size()) {
