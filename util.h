@@ -23,4 +23,6 @@ std::string int_to_hexstr(I x) {
 	return std::string(hxstr);
 }
 
+std::string int_to_bytes_str(uint16_t x);
+
 #endif	// UTIL_H

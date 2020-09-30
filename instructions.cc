@@ -63,8 +63,8 @@ void Operand::set_value(CPUState& state, int insnLength, uint16_t value) {
 std::string Operand::get_string() {
 	std::string s{};
 	s += "[Operand]:\n";
-	s += "\tAddress Mode = " + std::to_string(numAddrmode) + "\n";
-	s += "\tRegister = " + std::to_string(static_cast<int>(reg)) + "\n";
+	s += "\tAddress Mode = " + ENUMNAME(addressMode) + "\n";
+	s += "\tRegister = " + ENUMNAME(reg) + "\n";
 	s += "\tBw = " + std::to_string(bw) + "\n";
 	return s;
 }
@@ -139,7 +139,7 @@ void SingleOp::execute(CPUState& state) {
 			value >>= 1;
 			dst.set_value(state, length, value);
 			break;
-		
+
 		case SINGLE_OP::SXT:
 			value = dst.get_value(state, length);
 			value &= 0xFF;

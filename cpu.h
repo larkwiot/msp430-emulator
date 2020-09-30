@@ -12,9 +12,7 @@ struct CPU {
 	uint16_t currInsn;
 	std::unique_ptr<Insn> currDecInsn;
 
-	CPU() {
-		currDecInsn = nullptr;
-	}
+	CPU() { currDecInsn = nullptr; }
 	~CPU() = default;
 
 	void load_program(std::vector<uchar>& program);

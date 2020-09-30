@@ -108,9 +108,9 @@ bool CPUState::is_true(COND cond) const noexcept {
 
 uint16_t CPUState::read_mem(size_t address, bool bw) const {
 	if (bw) {
-		return memory.at(address) & 0xFF;
+		return memory.at(address);
 	}
-	return (memory.at(address) << 8) | memory.at(address+1);
+	return memory.at(address) | (memory.at(address + 1) << 8);
 }
 
 void CPUState::write_mem(size_t address, bool bw, uint16_t value) {
@@ -118,7 +118,7 @@ void CPUState::write_mem(size_t address, bool bw, uint16_t value) {
 		memory.at(address) = static_cast<uchar>(value & 0xFF);
 	} else {
 		memory.at(address) = value & 0xFF;
-		memory.at(address+1) = value << 8;
+		memory.at(address + 1) = value << 8;
 	}
 	return;
 }
@@ -154,4 +154,29 @@ std::string CPUState::get_string() {
 		ri++;
 	}
 	return s;
+}
+
+void CPUState::print_mem() {
+	int i = 0;
+	while (i + 8 < memory.size()) {
+		printf("0x%x: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n", i,
+			memory.at(i),
+			memory.at(i+1),
+			memory.at(i+2),
+			memory.at(i+3),
+			memory.at(i+4),
+			memory.at(i+5),
+			memory.at(i+6),
+			memory.at(i+7)
+		);
+		i += 8;
+	}
+	if (i < memory.size()) {
+		printf("0x%x: ", i);
+		for (auto j = i; j < memory.size(); j++) {
+			printf("0x%x ", memory.at(j));
+		}
+		puts("");
+	}
+	return;
 }

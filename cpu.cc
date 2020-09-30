@@ -12,6 +12,8 @@ void CPU::load_program(std::vector<uchar>& program) {
 }
 
 void CPU::fetch() {
+	// false because we always read the current instruction
+	// as a word, never in byte mode
 	currInsn = state.read_mem(state.get_pc(), false);
 	return;
 }
@@ -43,10 +45,17 @@ void CPU::execute() {
 }
 
 void CPU::step() {
+	std::cout << "[*] PC = " << int_to_hexstr(state.get_pc()) << "\n";
+
 	fetch();
+	std::cout << "[*] fetched: " << int_to_bytes_str(currInsn) << "\n";
+
 	decode();
+	
 	execute();
-	std::cerr << "[*] executing: " << currDecInsn->get_name() << "\n";
+	std::cout << "[*] executing: " << currDecInsn->get_string() << "\n";
+
+	std::cout << "\n";
 	return;
 }
 
@@ -63,8 +72,8 @@ void CPU::run() {
 
 std::string CPU::get_string() {
 	std::string s{};
-	s = "[CPU] currInsn = " + int_to_hexstr(currInsn) + "\n"
-		+ "[CPU] currDecInsn:\n";
+	s = "[CPU] currInsn = " + int_to_hexstr(currInsn) + "\n" +
+			"[CPU] currDecInsn:\n";
 	if (currDecInsn != nullptr) {
 		s += currDecInsn->get_string();
 	}

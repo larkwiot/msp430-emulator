@@ -51,6 +51,8 @@ struct CPUState {
 	void set_arith_flags(uint16_t a, uint16_t b, int result, bool bw);
 
 	std::string get_string();
+
+	void print_mem();
 };
 
 #endif	// STATE_H

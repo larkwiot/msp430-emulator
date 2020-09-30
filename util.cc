@@ -43,6 +43,15 @@ ADDRMODE get_addrmode(int nmode, REG reg) {
 	}
 
 	ERR("could not resolve address mode from int and reg");
-	std::cerr << "[num and reg] " << std::to_string(nmode) << " " << ENUMNAME(reg) << "\n";
+	std::cerr << "[num and reg] " << std::to_string(nmode) << " " << ENUMNAME(reg)
+						<< "\n";
 	abort();
+}
+
+std::string int_to_bytes_str(uint16_t x) {
+	char hxstr[6];
+	int low = x & 0xFF;
+	int high = (x >> 8) & 0xFF;
+	snprintf(hxstr, 6, "%x %x", low, high);
+	return std::string(hxstr);
 }
