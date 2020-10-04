@@ -1,6 +1,8 @@
 #ifndef CPP_WEEKLY_BITPATTERN_HPP
 #define CPP_WEEKLY_BITPATTERN_HPP
 
+// https://raw.githubusercontent.com/lefticus/cpp_weekly/master/HighPerfBitPattern/BitPattern.hpp
+
 #include <cstdint>
 #include <stdexcept>
 #include <type_traits>
